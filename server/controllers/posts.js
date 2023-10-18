@@ -29,7 +29,7 @@ export const getPostsBySearch = async (req, res) => {
 
         const posts = await PostMessage.find({ $or: [ { title }, { tags: { $in: tags.split(',') } } ]});
 
-        res.json({ data: posts });
+        res.status(200).json({ data: posts });
     } catch (error) {    
         res.status(404).json({ message: error.message });
     }
@@ -41,7 +41,7 @@ export const getPostsByCreator = async (req, res) => {
     try {
         const posts = await PostMessage.find({ name });
 
-        res.json({ data: posts });
+        res.status(200).json({ data: posts });
     } catch (error) {    
         res.status(404).json({ message: error.message });
     }
@@ -83,7 +83,7 @@ export const updatePost = async (req, res) => {
 
     await PostMessage.findByIdAndUpdate(id, updatedPost, { new: true });
 
-    res.json(updatedPost);
+    res.status(200).json(updatedPost);
 }
 
 export const deletePost = async (req, res) => {
@@ -93,7 +93,7 @@ export const deletePost = async (req, res) => {
 
     await PostMessage.findByIdAndRemove(id);
 
-    res.json({ message: "Post deleted successfully." });
+    res.status(200).json({ message: "Post deleted successfully." });
 }
 
 export const likePost = async (req, res) => {
